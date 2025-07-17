@@ -5,7 +5,7 @@ require("dotenv").config();
 
 const pool = require("./config/db.js"); // Impor pool untuk tes koneksi
 const mainRouter = require("./routes/index.js"); // Impor router utama dari routes/index.js
-
+const serverless = require("serverless-http");
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -59,5 +59,5 @@ app.use((err, req, res, next) => {
 //   console.log(`Server running at http://localhost:${port}`);
 // });
 
-// module.exports.handler = serverless(app);
 module.exports = app;
+module.exports.handler = serverless(app);
