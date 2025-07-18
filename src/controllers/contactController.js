@@ -7,7 +7,6 @@ const {
 
 exports.sendContactForm = async (req, res, next) => {
   try {
-    console.log(req.body);
     // Check validation results
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

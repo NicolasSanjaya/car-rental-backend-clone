@@ -283,7 +283,6 @@ exports.deleteBookings = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    console.log("Deleting booking with ID:", id);
 
     const result = await BookingModel.deleteBooking(id);
 

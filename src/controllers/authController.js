@@ -72,8 +72,6 @@ exports.register = async (req, res, next) => {
       [email.toLowerCase().trim()]
     );
 
-    console.log({ existingUser });
-
     if (existingUser.rows.length > 0) {
       return res
         .status(400)
@@ -90,11 +88,12 @@ exports.register = async (req, res, next) => {
     );
 
     // Simpan token di HTTP-only cookie
-    res.cookie("token", token, {
+    res.cookie("lax", token, {
       httpOnly: true, // Cookie tidak bisa diakses oleh JavaScript sisi klien
       secure: true, // Hanya kirim melalui HTTPS di lingkungan produksi
       sameSite: "strict", // Proteksi dari serangan CSRF
-      maxAge: 3600000 * 24, // Masa berlaku cookie (1 jam dalam milidetik)
+      path: "/",
+      maxAge: 60 * 60 * 24 * 1000, // Masa berlaku cookie (1 hari dalam milidetik)
     });
 
     res.status(201).json({
@@ -156,8 +155,9 @@ exports.login = async (req, res, next) => {
     res.cookie("token", token, {
       httpOnly: true, // Cookie tidak bisa diakses oleh JavaScript sisi klien
       secure: true, // Hanya kirim melalui HTTPS di lingkungan produksi
-      sameSite: "strict", // Proteksi dari serangan CSRF
-      maxAge: 3600000 * 24, // Masa berlaku cookie (1 jam dalam milidetik)
+      sameSite: "lax", // Proteksi dari serangan CSRF
+      path: "/",
+      maxAge: 60 * 60 * 24 * 1000, // Masa berlaku cookie (1 hari dalam milidetik)
     });
 
     if (user.role === "admin") {
@@ -165,10 +165,10 @@ exports.login = async (req, res, next) => {
         path: "/",
         httpOnly: true,
         secure: true,
-        sameSite: "strict",
-        maxAge: 3600000 * 24,
+        sameSite: "lax",
+        maxAge: 60 * 60 * 24 * 1000,
       });
-      return res.json({
+      return res.status(200).json({
         success: true,
         message: "Login successful",
         data: { user, token },

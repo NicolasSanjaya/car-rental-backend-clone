@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 // Middleware Global
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    origin: process.env.FRONTEND_URL || "http://car-rental-web-weld.vercel.app",
     credentials: true,
   })
 );

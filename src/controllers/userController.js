@@ -20,7 +20,6 @@ exports.updateUser = async (req, res, next) => {
     );
 
     if (user.rows.length > 0) {
-      console.log("Email is already taken by another user");
       return res
         .status(400)
         .json({ message: "Email is already taken by another user" });
@@ -31,8 +30,6 @@ exports.updateUser = async (req, res, next) => {
       full_name,
       email,
     });
-
-    console.log({ result });
 
     if (!result) {
       return res.status(404).json({ message: "User not found" });
@@ -72,8 +69,6 @@ exports.changePassword = async (req, res, next) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-
-    console.log(current_password, user.password_hash);
 
     // Verify current password
     const isValidPassword = await bcrypt.compare(

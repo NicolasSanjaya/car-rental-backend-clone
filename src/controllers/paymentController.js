@@ -46,7 +46,6 @@ exports.mainPayment = async (req, res, next) => {
       amount: paymentData.amount,
     };
 
-    console.log("savedBooking", savedBooking);
 
     const emailSent = await sendConfirmationEmailBlockchain(
       savedBooking,

@@ -116,8 +116,6 @@ const BookingModel = {
   async saveBookingToDatabase(bookingData) {
     const client = await pool.connect();
 
-    console.log(bookingData);
-
     try {
       const query = `
       INSERT INTO bookings (
