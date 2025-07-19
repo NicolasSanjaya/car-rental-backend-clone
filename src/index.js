@@ -23,8 +23,6 @@ app.use(
     ],
     credentials: true,
     optionsSuccessStatus: 200,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(cookieParser());
