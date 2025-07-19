@@ -155,7 +155,7 @@ exports.login = async (req, res, next) => {
     res.cookie("token", token, {
       httpOnly: true, // Cookie tidak bisa diakses oleh JavaScript sisi klien
       secure: true, // Hanya kirim melalui HTTPS di lingkungan produksi
-      sameSite: "lax", // Proteksi dari serangan CSRF
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Proteksi dari serangan CSRF
       path: "/",
       maxAge: 60 * 60 * 24 * 1000, // Masa berlaku cookie (1 hari dalam milidetik)
     });
@@ -165,7 +165,7 @@ exports.login = async (req, res, next) => {
         path: "/",
         httpOnly: true,
         secure: true,
-        sameSite: "lax",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 60 * 60 * 24 * 1000,
       });
       return res.status(200).json({

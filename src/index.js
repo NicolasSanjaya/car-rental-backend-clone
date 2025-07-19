@@ -22,9 +22,9 @@ app.use(
     credentials: true,
   })
 );
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 // Tes Koneksi Database saat startup
 pool.query("SELECT NOW()", (err, res) => {
