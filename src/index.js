@@ -8,6 +8,7 @@ const mainRouter = require("./routes/index.js"); // Impor router utama dari rout
 const serverless = require("serverless-http");
 const app = express();
 const port = process.env.PORT || 4000;
+const cookieParser = require("cookie-parser");
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -16,12 +17,14 @@ app.get("/", (req, res) => {
 // Middleware Global
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://car-rental-web-weld.vercel.app",
+    origin:
+      process.env.FRONTEND_URL || "https://car-rental-web-weld.vercel.app",
     credentials: true,
   })
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Tes Koneksi Database saat startup
 pool.query("SELECT NOW()", (err, res) => {
