@@ -158,6 +158,7 @@ exports.login = async (req, res, next) => {
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Proteksi dari serangan CSRF
       path: "/",
       maxAge: 60 * 60 * 24 * 1000, // Masa berlaku cookie (1 hari dalam milidetik)
+      domain: ".vercel.app",
     });
 
     if (user.role === "admin") {
@@ -167,6 +168,7 @@ exports.login = async (req, res, next) => {
         secure: true,
         sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 60 * 60 * 24 * 1000,
+        domain: ".vercel.app",
       });
       return res.status(200).json({
         success: true,
